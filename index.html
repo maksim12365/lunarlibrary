@@ -28,13 +28,12 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* ФОН - ЗАМЕНИ ЭТУ СТРОКУ НА СВОЮ КАРТИНКУ: */
             background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            /* Или так: background: url('images/your-bg.jpg') no-repeat center center fixed; background-size: cover; */
             color: var(--text-light);
             min-height: 100vh;
             overflow-x: hidden;
-            padding-bottom: 140px;
+            padding-bottom: 120px;
+            padding-top: 80px; /* Отступ для фиксированного меню */
             position: relative;
         }
 
@@ -54,7 +53,6 @@
             position: absolute;
             border-radius: 50%;
             opacity: 0.6;
-            animation: float-particle 15s infinite;
         }
 
         .particle.firefly {
@@ -66,6 +64,7 @@
         .particle.star {
             background: white;
             box-shadow: 0 0 5px white;
+            animation: twinkle 3s infinite;
         }
 
         .particle.petal {
@@ -81,17 +80,17 @@
             100% { transform: translate(200px, -400px) scale(0.8); opacity: 0; }
         }
 
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
         @keyframes float-petal {
             0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
             10% { opacity: 0.8; }
             50% { transform: translate(-150px, 300px) rotate(180deg); }
             90% { opacity: 0.8; }
             100% { transform: translate(-300px, 600px) rotate(360deg); opacity: 0; }
-        }
-
-        @keyframes float-particle {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-100px) rotate(180deg); }
         }
 
         /* Луна с анимацией */
@@ -135,7 +134,7 @@
             to { box-shadow: 0 0 60px var(--moon-yellow), 0 0 120px rgba(244, 228, 188, 0.5); }
         }
 
-        /* Шапка с анимацией */
+        /* Шапка */
         header {
             text-align: center;
             padding: 60px 20px 40px;
@@ -158,7 +157,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: title-glow 3s ease-in-out infinite alternate, title-float 4s ease-in-out infinite;
-            text-shadow: none;
             filter: drop-shadow(0 0 20px rgba(155, 126, 217, 0.5));
         }
 
@@ -183,20 +181,23 @@
             to { opacity: 0.9; }
         }
 
-        /* Навигация с эффектом */
+        /* ФИКСИРОВАННАЯ НАВИГАЦИЯ */
         nav {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
-            padding: 20px;
-            background: rgba(0,0,0,0.4);
+            padding: 15px 20px;
+            background: rgba(26, 26, 46, 0.95);
             backdrop-filter: blur(10px);
-            position: sticky;
+            position: fixed; /* ФИКСИРОВАННАЯ */
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            z-index: 1000;
             border-bottom: 2px solid rgba(155, 126, 217, 0.5);
-            animation: slideDown 1s ease-out 1s both;
+            animation: slideDown 1s ease-out;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
 
         @keyframes slideDown {
@@ -207,13 +208,14 @@
         nav a {
             color: var(--text-light);
             text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 30px;
+            padding: 10px 20px;
+            border-radius: 25px;
             background: linear-gradient(135deg, var(--luntik-purple), var(--deep-purple));
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
+            font-size: 0.95em;
         }
 
         nav a::before {
@@ -234,8 +236,8 @@
         nav a:hover {
             background: linear-gradient(135deg, var(--moon-yellow), var(--luntik-purple));
             border-color: var(--moon-yellow);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(155, 126, 217, 0.6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(155, 126, 217, 0.6);
             color: var(--night-blue);
         }
 
@@ -271,12 +273,6 @@
             border-left: 6px solid var(--luntik-purple);
             padding-left: 25px;
             position: relative;
-            animation: slideInLeft 0.8s ease-out;
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
         }
 
         h2::after {
@@ -342,7 +338,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Галерея с анимацией */
+        /* Галерея */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -580,17 +576,17 @@
             position: relative;
         }
 
-        /* МУЗЫКАЛЬНЫЙ ПЛЕЕР - ФИКСИРОВАННЫЙ */
+        /* КОМПАКТНЫЙ МУЗЫКАЛЬНЫЙ ПЛЕЕР */
         .music-player {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             background: linear-gradient(180deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.99));
-            border-top: 4px solid var(--luntik-purple);
-            padding: 25px 20px;
+            border-top: 3px solid var(--luntik-purple);
+            padding: 12px 20px;
             z-index: 1000;
-            box-shadow: 0 -10px 50px rgba(155, 126, 217, 0.6);
+            box-shadow: 0 -5px 30px rgba(155, 126, 217, 0.5);
             backdrop-filter: blur(20px);
             animation: slideUp 1s ease-out;
         }
@@ -601,40 +597,33 @@
         }
 
         .player-container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .player-info {
             text-align: center;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease-out;
+            margin-bottom: 8px;
         }
 
         .player-info h3 {
             color: var(--moon-yellow);
-            font-size: 1.4em;
-            margin-bottom: 8px;
+            font-size: 1.1em;
+            margin-bottom: 4px;
             text-shadow: 0 0 10px rgba(244, 228, 188, 0.5);
-            animation: pulse-text 2s infinite;
-        }
-
-        @keyframes pulse-text {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
         }
 
         .player-info p {
             color: var(--soft-pink);
-            font-size: 1em;
+            font-size: 0.85em;
         }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 5px;
             background: rgba(255,255,255,0.15);
-            border-radius: 4px;
-            margin-bottom: 20px;
+            border-radius: 3px;
+            margin-bottom: 10px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -642,65 +631,45 @@
         }
 
         .progress-bar:hover {
-            height: 10px;
+            height: 6px;
         }
 
         .progress {
             height: 100%;
             background: linear-gradient(90deg, var(--luntik-purple), var(--moon-yellow), var(--soft-pink));
-            border-radius: 4px;
+            border-radius: 3px;
             width: 0%;
             transition: width 0.1s linear;
             box-shadow: 0 0 10px rgba(155, 126, 217, 0.8);
-            position: relative;
-        }
-
-        .progress::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 15px;
-            height: 15px;
-            background: var(--moon-yellow);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--moon-yellow);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .progress-bar:hover .progress::after {
-            opacity: 1;
         }
 
         .player-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 25px;
+            gap: 15px;
         }
 
         .player-btn {
             background: linear-gradient(135deg, var(--luntik-purple), var(--deep-purple));
-            border: 3px solid transparent;
+            border: 2px solid transparent;
             color: white;
-            width: 55px;
-            height: 55px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.3em;
+            font-size: 1em;
             transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
         }
 
         .player-btn:hover {
-            transform: translateY(-5px) scale(1.15);
+            transform: translateY(-3px) scale(1.1);
             border-color: var(--moon-yellow);
-            box-shadow: 0 10px 30px rgba(155, 126, 217, 0.6);
+            box-shadow: 0 8px 20px rgba(155, 126, 217, 0.5);
             background: linear-gradient(135deg, var(--moon-yellow), var(--luntik-purple));
             color: var(--night-blue);
         }
@@ -710,18 +679,12 @@
         }
 
         .player-btn.play-pause {
-            width: 75px;
-            height: 75px;
-            font-size: 1.8em;
+            width: 55px;
+            height: 55px;
+            font-size: 1.3em;
             background: linear-gradient(135deg, var(--moon-yellow), var(--accent-gold));
             color: var(--night-blue);
             border-color: var(--moon-yellow);
-            animation: pulse-play 2s infinite;
-        }
-
-        @keyframes pulse-play {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(244, 228, 188, 0.7); }
-            50% { box-shadow: 0 0 0 15px rgba(244, 228, 188, 0); }
         }
 
         .player-btn.play-pause:hover {
@@ -729,12 +692,12 @@
             color: white;
         }
 
-        .player-btn.playing {
-            animation: none;
-        }
-
         /* Адаптивность */
         @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
             header h1 {
                 font-size: 2.2em;
             }
@@ -744,13 +707,13 @@
             }
             
             nav {
-                gap: 10px;
-                padding: 15px 10px;
+                gap: 8px;
+                padding: 10px 15px;
             }
             
             nav a {
-                padding: 10px 18px;
-                font-size: 0.9em;
+                padding: 8px 15px;
+                font-size: 0.85em;
             }
             
             .moon {
@@ -759,19 +722,32 @@
             }
             
             .music-player {
-                padding: 20px 15px;
+                padding: 10px 15px;
+            }
+            
+            .player-info h3 {
+                font-size: 1em;
+            }
+            
+            .player-info p {
+                font-size: 0.8em;
             }
             
             .player-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.1em;
+                width: 38px;
+                height: 38px;
+                font-size: 0.9em;
             }
             
             .player-btn.play-pause {
-                width: 65px;
-                height: 65px;
-                font-size: 1.5em;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2em;
+            }
+            
+            .progress-bar {
+                height: 4px;
+                margin-bottom: 8px;
             }
             
             .video-grid {
@@ -810,8 +786,8 @@
     <div class="particles" id="particles"></div>
 
     <!-- Декоративные иконки -->
-    <div class="floating-icon" style="top: 20%; left: 5%;">🌸</div>
-    <div class="floating-icon" style="top: 60%; right: 5%; animation-delay: 3s;">🐞</div>
+    <div class="floating-icon" style="top: 20%; left: 5%;"></div>
+    <div class="floating-icon" style="top: 60%; right: 5%; animation-delay: 3s;"></div>
     <div class="floating-icon" style="bottom: 30%; left: 8%; animation-delay: 5s;">🌿</div>
 
     <!-- Луна -->
@@ -819,20 +795,20 @@
         <div class="moon"></div>
     </div>
 
+    <!-- ФИКСИРОВАННАЯ НАВИГАЦИЯ -->
+    <nav>
+        <a href="#home">🏠 Главная</a>
+        <a href="#gallery">🖼️ Галерея</a>
+        <a href="#videos"> Видео</a>
+        <a href="#magazines">📚 Журналы</a>
+        <a href="#news">📰 Новости</a>
+    </nav>
+
     <!-- Шапка -->
     <header>
         <h1>🌙 Лунная Библиотека</h1>
         <p>Ностальгический архив мультфильма Лунтик</p>
     </header>
-
-    <!-- Навигация -->
-    <nav>
-        <a href="#home">🏠 Главная</a>
-        <a href="#gallery">🖼️ Галерея</a>
-        <a href="#videos">🎬 Видео</a>
-        <a href="#magazines">📚 Журналы</a>
-        <a href="#news">📰 Новости</a>
-    </nav>
 
     <!-- Основной контент -->
     <div class="container">
@@ -887,7 +863,7 @@
 
         <!-- Журналы -->
         <section id="magazines">
-            <h2>📚 Обложки журналов</h2>
+            <h2> Обложки журналов</h2>
             <div class="magazine-grid" id="magazine-grid">
                 <!-- Обложки будут добавлены через JS -->
             </div>
@@ -909,7 +885,7 @@
         </section>
     </div>
 
-    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР -->
+    <!-- КОМПАКТНЫЙ МУЗЫКАЛЬНЫЙ ПЛЕЕР -->
     <div class="music-player">
         <div class="player-container">
             <div class="player-info">
@@ -960,24 +936,24 @@
             { name: "🎉 Тема веселья", artist: "Лунтик - Веселье", src: "music/06-tema-veselya.mp3" },
             { name: "😊 Тема радости", artist: "Лунтик - Радость", src: "music/07-tema-radosti.mp3" },
             { name: "🎖️ Тема генералов", artist: "Лунтик - Генералы", src: "music/08-tema-generalov.mp3" },
-            { name: " Тема Шнюка", artist: "Лунтик - Шнюк", src: "music/09-tema-shnyuka.mp3" },
+            { name: "🕷️ Тема Шнюка", artist: "Лунтик - Шнюк", src: "music/09-tema-shnyuka.mp3" },
             { name: "🏃 Тема погони", artist: "Лунтик - Погоня", src: "music/10-tema-pogoni.mp3" },
             { name: "🐛 Тема гусениц", artist: "Лунтик - Гусеницы", src: "music/11-tema-gusenits.mp3" },
             { name: "⚠️ Тема опасности 2", artist: "Лунтик - Опасность 2", src: "music/12-tema-opasnosti-2.mp3" },
             { name: "🌙 Тема ночи", artist: "Лунтик - Ночная мелодия", src: "music/13-tema-nochi.mp3" },
             { name: "🌞 Тема дня", artist: "Лунтик - Утро на поляне", src: "music/14-tema-dnya.mp3" },
             { name: "👵 Тема тёти Моти", artist: "Лунтик - Тётя Мотя", src: "music/15-tema-teti-moti.mp3" },
-            { name: "💃 Лесная полька", artist: "Лунтик - Полька", src: "music/16-lesnaya-polka.mp3" },
+            { name: " Лесная полька", artist: "Лунтик - Полька", src: "music/16-lesnaya-polka.mp3" },
             { name: "🚧 Тема преграды", artist: "Лунтик - Преграда", src: "music/17-tema-pregrady.mp3" },
-            { name: "🌼 Тема из серии «Одуванчик»", artist: "Лунтик - Одуванчик", src: "music/18-oduvalchik.mp3" },
-            { name: "📖 Тема из серии «Конкурс чтецов»", artist: "Лунтик - Конкурс чтецов", src: "music/19-konkurs-chtecov.mp3" },
+            { name: " Тема из серии «Одуванчик»", artist: "Лунтик - Одуванчик", src: "music/18-oduvalchik.mp3" },
+            { name: " Тема из серии «Конкурс чтецов»", artist: "Лунтик - Конкурс чтецов", src: "music/19-konkurs-chtecov.mp3" },
             { name: "🐜 Тема муравьёв", artist: "Лунтик - Муравьи", src: "music/20-tema-muraviev.mp3" },
             { name: "❄️ Зимняя тема", artist: "Лунтик - Зима", src: "music/21-zimnyaya-tema.mp3" },
             { name: "❄️ Зимняя тема 2", artist: "Лунтик - Зима 2", src: "music/22-zimnyaya-tema-2.mp3" },
             { name: "🎵 Песня «Упорным и отважным»", artist: "Лунтик - Финальная песня", src: "music/23-upornym-i-otvazhnym.mp3" }
         ];
 
-        // Галерея (заглушки - заменишь на свои картинки)
+        // Галерея (заглушки)
         const galleryImages = [
             { src: "images/gallery-1.jpg", alt: "Первая серия" },
             { src: "images/gallery-2.jpg", alt: "Поляна" },
@@ -1045,14 +1021,12 @@
             if (isPlaying) {
                 audio.pause();
                 playPauseBtn.textContent = '▶';
-                playPauseBtn.classList.remove('playing');
             } else {
                 audio.play().catch(e => {
                     console.log('Автовоспроизведение заблокировано:', e);
                     alert('Нажмите ещё раз, чтобы включить музыку 🎵');
                 });
                 playPauseBtn.textContent = '⏸';
-                playPauseBtn.classList.add('playing');
             }
             isPlaying = !isPlaying;
         }
