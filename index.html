@@ -1,1 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌙 Лунная Библиотека</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --moon-yellow: #F4E4BC;
+            --luntik-purple: #9B7ED9;
+            --night-blue: #1a1a2e;
+            --deep-purple: #16213e;
+            --soft-pink: #E8A5A5;
+            --grass-green: #7FB069;
+            --text-light: #F0F0F0;
+            --accent-gold: #FFD700;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* ФОН - ЗАМЕНИ ЭТУ СТРОКУ НА СВОЮ КАРТИНКУ: */
+            background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            /* Или так: background: url('images/your-bg.jpg') no-repeat center center fixed; background-size: cover; */
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 140px;
+            position: relative;
+        }
+
+        /* Анимированный фон с частицами */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float-particle 15s infinite;
+        }
+
+        .particle.firefly {
+            background: radial-gradient(circle, #ffff99, #ffd700);
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+            animation: float-firefly 8s infinite ease-in-out;
+        }
+
+        .particle.star {
+            background: white;
+            box-shadow: 0 0 5px white;
+        }
+
+        .particle.petal {
+            background: radial-gradient(circle, var(--soft-pink), transparent);
+            animation: float-petal 12s infinite ease-in-out;
+        }
+
+        @keyframes float-firefly {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translate(100px, -200px) scale(1.2); }
+            90% { opacity: 1; }
+            100% { transform: translate(200px, -400px) scale(0.8); opacity: 0; }
+        }
+
+        @keyframes float-petal {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            50% { transform: translate(-150px, 300px) rotate(180deg); }
+            90% { opacity: 0.8; }
+            100% { transform: translate(-300px, 600px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes float-particle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+
+        /* Луна с анимацией */
+        .moon-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 1;
+            animation: moon-float 6s ease-in-out infinite;
+        }
+
+        .moon {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 30% 30%, var(--moon-yellow), #D4C4A8, #B8A890);
+            border-radius: 50%;
+            box-shadow: 0 0 60px var(--moon-yellow), 0 0 100px rgba(244, 228, 188, 0.4), inset -20px -20px 40px rgba(0,0,0,0.2);
+            position: relative;
+            animation: moon-glow 4s ease-in-out infinite alternate;
+        }
+
+        .moon::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            top: 30px;
+            left: 35px;
+            box-shadow: 35px 10px 0 rgba(0,0,0,0.08), 15px 35px 0 rgba(0,0,0,0.12);
+        }
+
+        @keyframes moon-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        @keyframes moon-glow {
+            from { box-shadow: 0 0 40px var(--moon-yellow), 0 0 80px rgba(244, 228, 188, 0.3); }
+            to { box-shadow: 0 0 60px var(--moon-yellow), 0 0 120px rgba(244, 228, 188, 0.5); }
+        }
+
+        /* Шапка с анимацией */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, rgba(155, 126, 217, 0.3), transparent);
+            position: relative;
+            z-index: 10;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--moon-yellow), var(--luntik-purple), var(--soft-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: title-glow 3s ease-in-out infinite alternate, title-float 4s ease-in-out infinite;
+            text-shadow: none;
+            filter: drop-shadow(0 0 20px rgba(155, 126, 217, 0.5));
+        }
+
+        @keyframes title-glow {
+            from { filter: drop-shadow(0 0 10px rgba(155, 126, 217, 0.5)) drop-shadow(0 0 20px rgba(244, 228, 188, 0.3)); }
+            to { filter: drop-shadow(0 0 30px rgba(155, 126, 217, 0.8)) drop-shadow(0 0 50px rgba(244, 228, 188, 0.6)); }
+        }
+
+        @keyframes title-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: var(--moon-yellow);
+            opacity: 0.9;
+            animation: fadeIn 2s ease-out 0.5s both;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 0.9; }
+        }
+
+        /* Навигация с эффектом */
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid rgba(155, 126, 217, 0.5);
+            animation: slideDown 1s ease-out 1s both;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--luntik-purple), var(--deep-purple));
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a:hover {
+            background: linear-gradient(135deg, var(--moon-yellow), var(--luntik-purple));
+            border-color: var(--moon-yellow);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(155, 126, 217, 0.6);
+            color: var(--night-blue);
+        }
+
+        /* Контейнер */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Секции с анимацией появления */
+        section {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        h2 {
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--moon-yellow), var(--soft-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-left: 6px solid var(--luntik-purple);
+            padding-left: 25px;
+            position: relative;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25px;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--luntik-purple), transparent);
+            border-radius: 2px;
+            animation: expandWidth 1s ease-out 0.5s both;
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        /* Интро блок */
+        .intro {
+            background: linear-gradient(135deg, rgba(155, 126, 217, 0.2), rgba(232, 165, 165, 0.2));
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+            border: 3px solid rgba(155, 126, 217, 0.5);
+            backdrop-filter: blur(10px);
+            animation: pulse-border 3s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro::before {
+            content: '🐰';
+            position: absolute;
+            font-size: 15em;
+            opacity: 0.05;
+            top: -50px;
+            right: -50px;
+            animation: rotate-slow 20s linear infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(155, 126, 217, 0.5); box-shadow: 0 0 20px rgba(155, 126, 217, 0.3); }
+            50% { border-color: rgba(244, 228, 188, 0.8); box-shadow: 0 0 40px rgba(244, 228, 188, 0.5); }
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .intro p {
+            font-size: 1.3em;
+            line-height: 1.9;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Галерея с анимацией */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .gallery-item {
+            background: linear-gradient(135deg, rgba(155, 126, 217, 0.3), rgba(232, 165, 165, 0.2));
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 3px solid rgba(155, 126, 217, 0.5);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .gallery-item:hover::after {
+            left: 100%;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px) scale(1.03) rotate(1deg);
+            box-shadow: 0 20px 50px rgba(155, 126, 217, 0.6);
+            border-color: var(--moon-yellow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item p {
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            background: rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover p {
+            background: rgba(155, 126, 217, 0.5);
+            color: var(--moon-yellow);
+        }
+
+        /* Видео секция */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .video-item {
+            background: linear-gradient(135deg, rgba(155, 126, 217, 0.2), rgba(0,0,0,0.3));
+            border-radius: 25px;
+            padding: 25px;
+            border: 3px solid rgba(155, 126, 217, 0.5);
+            transition: all 0.5s;
+            animation: float-video 6s ease-in-out infinite;
+        }
+
+        .video-item:nth-child(2) {
+            animation-delay: 2s;
+        }
+
+        @keyframes float-video {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .video-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(155, 126, 217, 0.5);
+            border-color: var(--moon-yellow);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--luntik-purple), var(--deep-purple));
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .video-item h3 {
+            color: var(--moon-yellow);
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        /* Журналы */
+        .magazine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 35px;
+        }
+
+        .magazine-item {
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+        }
+
+        .magazine-item:hover {
+            transform: translateY(-20px) rotate(3deg) scale(1.05);
+        }
+
+        .magazine-cover {
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(135deg, var(--soft-pink), var(--luntik-purple), var(--grass-green));
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            border: 4px solid rgba(255,255,255,0.2);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magazine-cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .magazine-item:hover .magazine-cover::before {
+            left: 100%;
+        }
+
+        .magazine-item:hover .magazine-cover {
+            box-shadow: 0 25px 60px rgba(155, 126, 217, 0.6);
+            border-color: var(--moon-yellow);
+        }
+
+        .magazine-item p {
+            font-size: 1.1em;
+            color: var(--moon-yellow);
+            font-weight: 600;
+        }
+
+        /* Новости */
+        .news-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .news-item {
+            background: linear-gradient(135deg, rgba(155, 126, 217, 0.2), rgba(0,0,0,0.3));
+            padding: 35px;
+            border-radius: 20px;
+            border-left: 6px solid var(--luntik-purple);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(155, 126, 217, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .news-item:hover::before {
+            opacity: 1;
+        }
+
+        .news-item:hover {
+            transform: translateX(10px);
+            border-left-color: var(--moon-yellow);
+            box-shadow: 0 10px 30px rgba(155, 126, 217, 0.4);
+        }
+
+        .news-item h3 {
+            color: var(--moon-yellow);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            position: relative;
+        }
+
+        .news-item p {
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .news-date {
+            color: var(--soft-pink);
+            font-size: 0.9em;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        /* МУЗЫКАЛЬНЫЙ ПЛЕЕР - ФИКСИРОВАННЫЙ */
+        .music-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.99));
+            border-top: 4px solid var(--luntik-purple);
+            padding: 25px 20px;
+            z-index: 1000;
+            box-shadow: 0 -10px 50px rgba(155, 126, 217, 0.6);
+            backdrop-filter: blur(20px);
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .player-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .player-info {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .player-info h3 {
+            color: var(--moon-yellow);
+            font-size: 1.4em;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(244, 228, 188, 0.5);
+            animation: pulse-text 2s infinite;
+        }
+
+        @keyframes pulse-text {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .player-info p {
+            color: var(--soft-pink);
+            font-size: 1em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 4px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: height 0.3s;
+        }
+
+        .progress-bar:hover {
+            height: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--luntik-purple), var(--moon-yellow), var(--soft-pink));
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(155, 126, 217, 0.8);
+            position: relative;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            background: var(--moon-yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--moon-yellow);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .progress-bar:hover .progress::after {
+            opacity: 1;
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .player-btn {
+            background: linear-gradient(135deg, var(--luntik-purple), var(--deep-purple));
+            border: 3px solid transparent;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3em;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .player-btn:hover {
+            transform: translateY(-5px) scale(1.15);
+            border-color: var(--moon-yellow);
+            box-shadow: 0 10px 30px rgba(155, 126, 217, 0.6);
+            background: linear-gradient(135deg, var(--moon-yellow), var(--luntik-purple));
+            color: var(--night-blue);
+        }
+
+        .player-btn:active {
+            transform: scale(0.95);
+        }
+
+        .player-btn.play-pause {
+            width: 75px;
+            height: 75px;
+            font-size: 1.8em;
+            background: linear-gradient(135deg, var(--moon-yellow), var(--accent-gold));
+            color: var(--night-blue);
+            border-color: var(--moon-yellow);
+            animation: pulse-play 2s infinite;
+        }
+
+        @keyframes pulse-play {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(244, 228, 188, 0.7); }
+            50% { box-shadow: 0 0 0 15px rgba(244, 228, 188, 0); }
+        }
+
+        .player-btn.play-pause:hover {
+            background: linear-gradient(135deg, var(--luntik-purple), var(--deep-purple));
+            color: white;
+        }
+
+        .player-btn.playing {
+            animation: none;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            
+            h2 {
+                font-size: 2em;
+            }
+            
+            nav {
+                gap: 10px;
+                padding: 15px 10px;
+            }
+            
+            nav a {
+                padding: 10px 18px;
+                font-size: 0.9em;
+            }
+            
+            .moon {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .music-player {
+                padding: 20px 15px;
+            }
+            
+            .player-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.1em;
+            }
+            
+            .player-btn.play-pause {
+                width: 65px;
+                height: 65px;
+                font-size: 1.5em;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .intro {
+                padding: 30px 20px;
+            }
+            
+            .intro p {
+                font-size: 1.1em;
+            }
+        }
+
+        /* Декоративные элементы */
+        .floating-icon {
+            position: fixed;
+            font-size: 2em;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
+            animation: float-icon 10s ease-in-out infinite;
+        }
+
+        @keyframes float-icon {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, -50px) rotate(90deg); }
+            50% { transform: translate(0, -100px) rotate(180deg); }
+            75% { transform: translate(-50px, -50px) rotate(270deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимированные частицы -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Декоративные иконки -->
+    <div class="floating-icon" style="top: 20%; left: 5%;">🌸</div>
+    <div class="floating-icon" style="top: 60%; right: 5%; animation-delay: 3s;">🐞</div>
+    <div class="floating-icon" style="bottom: 30%; left: 8%; animation-delay: 5s;">🌿</div>
+
+    <!-- Луна -->
+    <div class="moon-container">
+        <div class="moon"></div>
+    </div>
+
+    <!-- Шапка -->
+    <header>
+        <h1>🌙 Лунная Библиотека</h1>
+        <p>Ностальгический архив мультфильма Лунтик</p>
+    </header>
+
+    <!-- Навигация -->
+    <nav>
+        <a href="#home">🏠 Главная</a>
+        <a href="#gallery">🖼️ Галерея</a>
+        <a href="#videos">🎬 Видео</a>
+        <a href="#magazines">📚 Журналы</a>
+        <a href="#news">📰 Новости</a>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Главная -->
+        <section id="home">
+            <h2>Добро пожаловать! 🐰</h2>
+            <div class="intro">
+                <p>
+                    Это место, где собрана вся ностальгия по любимому мультфильму. 
+                    Здесь ты найдёшь кадры из серий, трейлеры, обложки журналов и, конечно же, 
+                    легендарную музыку из мультфильма. Включай плеер внизу и погружайся в атмосферу! 🌟
+                </p>
+            </div>
+        </section>
+
+        <!-- Галерея -->
+        <section id="gallery">
+            <h2>🖼️ Галерея кадров</h2>
+            <div class="gallery" id="gallery-grid">
+                <!-- Картинки будут добавлены через JS -->
+            </div>
+        </section>
+
+        <!-- Видео -->
+        <section id="videos">
+            <h2>🎬 Видео и трейлеры</h2>
+            <div class="video-grid">
+                <div class="video-item">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_1" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3>Трейлер мультсериала</h3>
+                    <p>Официальный трейлер мультсериала Лунтик</p>
+                </div>
+                <div class="video-item">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VIDEO_ID_2" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3>Анонс 2006 года</h3>
+                    <p>Первый анонс мультфильма (2006)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Журналы -->
+        <section id="magazines">
+            <h2>📚 Обложки журналов</h2>
+            <div class="magazine-grid" id="magazine-grid">
+                <!-- Обложки будут добавлены через JS -->
+            </div>
+        </section>
+
+        <!-- Новости -->
+        <section id="news">
+            <h2>📰 Новости</h2>
+            <div class="news-container">
+                <div class="news-item">
+                    <h3>🎉 Сайт запущен!</h3>
+                    <p>
+                        Добро пожаловать в Лунную Библиотеку! Здесь мы собираем всё самое интересное 
+                        о мультфильме Лунтик. Сайт постоянно пополняется новыми материалами!
+                    </p>
+                    <div class="news-date">30 июня 2026</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР -->
+    <div class="music-player">
+        <div class="player-container">
+            <div class="player-info">
+                <h3 id="track-name">🎵 Титры</h3>
+                <p id="track-artist">Лунтик - Саундтрек</p>
+            </div>
+            
+            <div class="progress-bar" id="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            
+            <div class="player-controls">
+                <button class="player-btn" id="prev-btn" title="Предыдущий трек">⏮</button>
+                <button class="player-btn play-pause" id="play-pause-btn" title="Играть/Пауза">▶</button>
+                <button class="player-btn" id="next-btn" title="Следующий трек">⏭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Аудио элемент -->
+    <audio id="audio-player" preload="metadata"></audio>
+
+    <script>
+        // Создание частиц
+        const particlesContainer = document.getElementById('particles');
+        const particleTypes = ['firefly', 'star', 'petal'];
+        
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = `particle ${particleTypes[Math.floor(Math.random() * particleTypes.length)]}`;
+            const size = Math.random() * 8 + 4;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // СПИСОК ТРЕКОВ (23 штуки по порядку)
+        const tracks = [
+            { name: "🎵 Титры", artist: "Лунтик - Главная тема", src: "music/01-titry.mp3" },
+            { name: "🌿 Тема ивы", artist: "Лунтик - Под ивой", src: "music/02-tema-ivy.mp3" },
+            { name: "😰 Тема страха", artist: "Лунтик - Напряжение", src: "music/03-tema-straha.mp3" },
+            { name: "😨 Тема страха 2", artist: "Лунтик - Напряжение 2", src: "music/04-tema-straha-2.mp3" },
+            { name: "⚠️ Тема опасности", artist: "Лунтик - Опасность 1", src: "music/05-tema-opasnosti.mp3" },
+            { name: "🎉 Тема веселья", artist: "Лунтик - Веселье", src: "music/06-tema-veselya.mp3" },
+            { name: "😊 Тема радости", artist: "Лунтик - Радость", src: "music/07-tema-radosti.mp3" },
+            { name: "🎖️ Тема генералов", artist: "Лунтик - Генералы", src: "music/08-tema-generalov.mp3" },
+            { name: " Тема Шнюка", artist: "Лунтик - Шнюк", src: "music/09-tema-shnyuka.mp3" },
+            { name: "🏃 Тема погони", artist: "Лунтик - Погоня", src: "music/10-tema-pogoni.mp3" },
+            { name: "🐛 Тема гусениц", artist: "Лунтик - Гусеницы", src: "music/11-tema-gusenits.mp3" },
+            { name: "⚠️ Тема опасности 2", artist: "Лунтик - Опасность 2", src: "music/12-tema-opasnosti-2.mp3" },
+            { name: "🌙 Тема ночи", artist: "Лунтик - Ночная мелодия", src: "music/13-tema-nochi.mp3" },
+            { name: "🌞 Тема дня", artist: "Лунтик - Утро на поляне", src: "music/14-tema-dnya.mp3" },
+            { name: "👵 Тема тёти Моти", artist: "Лунтик - Тётя Мотя", src: "music/15-tema-teti-moti.mp3" },
+            { name: "💃 Лесная полька", artist: "Лунтик - Полька", src: "music/16-lesnaya-polka.mp3" },
+            { name: "🚧 Тема преграды", artist: "Лунтик - Преграда", src: "music/17-tema-pregrady.mp3" },
+            { name: "🌼 Тема из серии «Одуванчик»", artist: "Лунтик - Одуванчик", src: "music/18-oduvalchik.mp3" },
+            { name: "📖 Тема из серии «Конкурс чтецов»", artist: "Лунтик - Конкурс чтецов", src: "music/19-konkurs-chtecov.mp3" },
+            { name: "🐜 Тема муравьёв", artist: "Лунтик - Муравьи", src: "music/20-tema-muraviev.mp3" },
+            { name: "❄️ Зимняя тема", artist: "Лунтик - Зима", src: "music/21-zimnyaya-tema.mp3" },
+            { name: "❄️ Зимняя тема 2", artist: "Лунтик - Зима 2", src: "music/22-zimnyaya-tema-2.mp3" },
+            { name: "🎵 Песня «Упорным и отважным»", artist: "Лунтик - Финальная песня", src: "music/23-upornym-i-otvazhnym.mp3" }
+        ];
+
+        // Галерея (заглушки - заменишь на свои картинки)
+        const galleryImages = [
+            { src: "images/gallery-1.jpg", alt: "Первая серия" },
+            { src: "images/gallery-2.jpg", alt: "Поляна" },
+            { src: "images/gallery-3.jpg", alt: "Лунная ночь" },
+            { src: "images/gallery-4.jpg", alt: "Друзья" },
+            { src: "images/gallery-5.jpg", alt: "Приключения" },
+            { src: "images/gallery-6.jpg", alt: "Момент из серии" }
+        ];
+
+        // Журналы (заглушки)
+        const magazines = [
+            { number: "№1", year: "2007" },
+            { number: "№5", year: "2007" },
+            { number: "№12", year: "2008" },
+            { number: "Спецвыпуск", year: "2009" },
+            { number: "№20", year: "2010" },
+            { number: "№35", year: "2012" }
+        ];
+
+        // Рендер галереи
+        const galleryGrid = document.getElementById('gallery-grid');
+        galleryImages.forEach((img, index) => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.innerHTML = `
+                <div style="width: 100%; height: 250px; background: linear-gradient(135deg, #7FB069, #9B7ED9); display: flex; align-items: center; justify-content: center; font-size: 5em; border-radius: 20px 20px 0 0;">🐰</div>
+                <p>Кадр ${index + 1}</p>
+            `;
+            galleryGrid.appendChild(item);
+        });
+
+        // Рендер журналов
+        const magazineGrid = document.getElementById('magazine-grid');
+        magazines.forEach((mag, index) => {
+            const item = document.createElement('div');
+            item.className = 'magazine-item';
+            item.innerHTML = `
+                <div class="magazine-cover">📖</div>
+                <p>Лунтик ${mag.number}<br><small>${mag.year}</small></p>
+            `;
+            magazineGrid.appendChild(item);
+        });
+
+        // Плеер
+        let currentTrackIndex = 0;
+        let isPlaying = false;
+
+        const audio = document.getElementById('audio-player');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progress = document.getElementById('progress');
+        const trackName = document.getElementById('track-name');
+        const trackArtist = document.getElementById('track-artist');
+
+        function loadTrack(index) {
+            audio.src = tracks[index].src;
+            trackName.textContent = tracks[index].name;
+            trackArtist.textContent = tracks[index].artist;
+            progress.style.width = '0%';
+        }
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+                playPauseBtn.textContent = '▶';
+                playPauseBtn.classList.remove('playing');
+            } else {
+                audio.play().catch(e => {
+                    console.log('Автовоспроизведение заблокировано:', e);
+                    alert('Нажмите ещё раз, чтобы включить музыку 🎵');
+                });
+                playPauseBtn.textContent = '⏸';
+                playPauseBtn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) audio.play();
+        }
+
+        function prevTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) audio.play();
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = percent + '%';
+        });
+
+        audio.addEventListener('ended', nextTrack);
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = percent * audio.duration;
+        });
+
+        playPauseBtn.addEventListener('click', togglePlay);
+        nextBtn.addEventListener('click', nextTrack);
+        prevBtn.addEventListener('click', prevTrack);
+
+        loadTrack(currentTrackIndex);
+
+        // Плавная прокрутка
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Анимация появления секций при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Параллакс эффект для луны
+        document.addEventListener('mousemove', (e) => {
+            const moon = document.querySelector('.moon-container');
+            const x = (window.innerWidth - e.pageX) / 50;
+            const y = (window.innerHeight - e.pageY) / 50;
+            moon.style.transform = `translateX(${x}px) translateY(${y}px)`;
+        });
+    </script>
+</body>
+</html>
